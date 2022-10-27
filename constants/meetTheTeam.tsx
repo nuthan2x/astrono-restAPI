@@ -46,7 +46,7 @@ const meet: MeetType[] = [
             alt: "Gus Haag",
         },
         name: "Gus Haag",
-        info: "Infrastructure Producer",
+        info: "Game Designer",
         content:
             " ",
         twitter: "https://twitter.com/astrono_io",
