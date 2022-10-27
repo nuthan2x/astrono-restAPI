@@ -22,7 +22,7 @@ const meet: MeetType[] = [
         content:
             "Over 10 years in Game Development Experience.",
         twitter: "https://twitter.com/Josh_Astrono",
-        Linkeldin: "https://www.linkedin.com/in/joshua-young-6b8148251/",
+        instagram: "https://www.linkedin.com/in/joshua-young-6b8148251/",
     },
     {
         image: {
