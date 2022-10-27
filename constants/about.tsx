@@ -19,7 +19,7 @@ const about: AboutType[] = [
         content:
             "Astrono is a fun intergalactic NFT Play to earn game with a metaverse that enables multiple forms of player interaction, Competetive Game Modes, and Token Rewards. The game has several modes, including adventure,",
         list: [
-            "arena battle, and building, to keep players engaged.",
+            "arena battle, and building, to keep players engaged",
             ,
         ],
     },
