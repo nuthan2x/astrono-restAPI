@@ -129,7 +129,7 @@ const Header = ({ noAuth }: HeaderProps) => {
                                         name="game"
                                         className={styles.icon_game}
                                     />
-                                    Play now
+                                    White Paper
                                 </a>
                             // </Link>
                         )}
