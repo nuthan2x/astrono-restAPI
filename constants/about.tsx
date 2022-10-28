@@ -22,7 +22,7 @@ const about: AboutType[] = [
             "Players can build and develop a sophisticated and advanced spaceship.",
             "players can protect their base from other players.",
             "Compete in Arena mode or challenge friends to earn crypto rewards for winning matches.\n",
-            "Make in-game purchases for NFTs, Trade, or Stake with rewards",
+            "Make in-game purchases for NFTs, Trade, or Stake with rewards.",
         ],
     },
     {
