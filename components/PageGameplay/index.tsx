@@ -11,6 +11,8 @@ import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 
 import { items } from "../../constants/infoColumns";
 import { sections } from "../../constants/details";
+import ComingSoon from "../ComingSoon";
+import Layout from "../Layout";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -110,7 +112,10 @@ const PageGameplay = ({ className }: PageGameplayProps) => {
         <>
             {mounted && (
                 <>
-                    <Hero />
+                    
+                        <Hero />
+                        <ComingSoon />
+                
 
                     <div className={styles.wrapper} ref={fullpagesRef}>
                         <div className={styles.sticky}>

@@ -5,6 +5,8 @@ import cn from "classnames";
 import Image from "../../Image";
 import Card from "./Card";
 import Mouse from "../../Mouse";
+import ComingSoon from "../../ComingSoon";
+import Layout from "../../Layout";
 
 const Range = dynamic(() => import("react-slider"), {
     ssr: false,
@@ -39,12 +41,15 @@ const Hero = ({}: HeroProps) => {
                     <div className={cn("h5", styles.info)}>
                         Play-to-Earn NFT Marketplace
                     </div>
-
-                    <Link href="/download-and-play">
-                        <a className={cn("button", styles.button)}>
-                            Download and play
-                        </a>
-                    </Link>
+                    
+                        <Link href="/download-and-play">
+                            <a className={cn("button", styles.button)}>
+                                Download and play
+                            </a>
+                        </Link>
+                    <ComingSoon />
+        
+                    
                 </div>
                 <div ref={cardsRef} className={styles.cards}>
                     {cards.map((card, index) => (
