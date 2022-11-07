@@ -89,10 +89,13 @@ const Offer = ({}: OfferProps) => (
                     <div className={styles.text}>
                         Join our community of over 62,000 people to get the most recent information on game development, a special opportunity for game testing, giveaways, and more.
                     </div>
-                    <button className={cn("button", styles.button)}>
-                        <Icon name="discord" size="20" />
-                        <span>Join our discord</span>
-                    </button>
+
+                    <a href="https://discord.com/invite/astrono" target="_blank" rel="noopener noreferrer">
+                        <button className={cn("button", styles.button)} >
+                          <Icon name="discord" size="20" />
+                          <span>Join our discord</span>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
