@@ -4,6 +4,7 @@ import styles from "./PageWelcome.module.sass";
 import Card from "./Card";
 import Link from "next/link";
 import ModalPurchase from "../ModalPurchase";
+import ComingSoon from "../ComingSoon";
 
 import { ItemsSlideType } from "../../types";
 
@@ -75,7 +76,9 @@ const Welcome = ({}: WelcomeProps) => {
                     setVisibleModal={() => setVisibleModal(false)}
                 />
             </div>
+            <ComingSoon />
         </div>
+
     );
 };
 
