@@ -1,9 +1,9 @@
 const getTitleFromRoute = (value: string) => {
     switch (value) {
         case "/":
-            return "AstroClash: Play-to-Earn NFT Marketplace Kit - Master";
+            return "AstronoClash: Play-to-Earn NFT Marketplace Kit - Master";
         default:
-            return "AstroClash: Play-to-Earn NFT Marketplace Kit - Master";
+            return "AstronoClash: Play-to-Earn NFT Marketplace Kit - Master";
     }
 };
 
