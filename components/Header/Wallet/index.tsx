@@ -5,6 +5,8 @@ import cn from "classnames";
 import styles from "./Wallet.module.sass";
 import Icon from "../../Icon";
 import Image from "../../Image";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import {useSigner, useAccount} from 'wagmi';
 
 import { formatWalletAddress } from "../../../utils";
 
@@ -14,8 +16,10 @@ type NotificationProps = {
 };
 
 const Notification = ({ className, wide }: NotificationProps) => {
+    const { address, isConnecting, isDisconnected } = useAccount()
+
     const [visible, setVisible] = useState(false);
-    const wallet: string = "hk980io73bz880hk980io73bz880";
+    const wallet: string = `${address}` ;
 
     return (
         <OutsideClickHandler onOutsideClick={() => !wide && setVisible(false)}>
@@ -40,9 +44,9 @@ const Notification = ({ className, wide }: NotificationProps) => {
                         />
                     </div>
                     <div className={styles.code}>
-                        {wide
+                        {address ? wide
                             ? formatWalletAddress(wallet, 10, 10)
-                            : formatWalletAddress(wallet, 7, 7)}
+                            : formatWalletAddress(wallet, 7, 7) : 'connect wallet'}
                     </div>
                 </button>
                 <div
@@ -50,30 +54,32 @@ const Notification = ({ className, wide }: NotificationProps) => {
                         [styles.wide]: wide,
                     })}
                 >
-                    <div className={styles.label}>Connected with Metamask</div>
+                    {address && <div className={styles.label}>Connected</div>}
                     <div className={styles.line}>
                         <div className={styles.code}>
-                            {formatWalletAddress(wallet, 10, 10)}
+                            {address ? formatWalletAddress(wallet, 10, 10) :  'connecting'}
                         </div>
                         <button className={styles.copy}>
                             <Icon name="copy" size="20" />
                         </button>
                     </div>
-                    <button
+                    {/* <button
                         className={cn(
                             "button-stroke button-sm",
                             styles.disconnectButton
                         )}
-                    >
-                        Disconnect wallet
-                    </button>
+                    > */}
+                        <div className={styles.connectButton}>
+                            <ConnectButton chainStatus="icon" showBalance={false}/>
+                        </div >
+                    {/* </button> */}
                     <div className={styles.link}>
-                        <a href="#" target="_blank" rel="noreferrer">
-                            View on explore
+                        <a href={`https://blockscan.com/address/${address}`} target="_blank" rel="noreferrer">
+                            View on explorer
                             <Icon name="external-link" size="16" />
                         </a>
                     </div>
-                    <div className={styles.foot}>
+                    {/* <div className={styles.foot}>
                         <div className={styles.balance}>
                             <div className={styles.currency}>
                                 <Image
@@ -93,7 +99,7 @@ const Notification = ({ className, wide }: NotificationProps) => {
                         <button className={cn("button-md", styles.button)}>
                             Withdraw
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </OutsideClickHandler>
