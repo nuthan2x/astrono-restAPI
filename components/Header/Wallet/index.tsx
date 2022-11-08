@@ -57,13 +57,15 @@ const Notification = ({ className, wide }: NotificationProps) => {
                     {address && <div className={styles.label}>Connected</div>}
                     <div className={styles.line}>
                         <div className={styles.code}>
-                            {address ? formatWalletAddress(wallet, 10, 10) :  'connecting'}
+                            {address ? formatWalletAddress(wallet, 10, 10) :  'connect'}
                         </div>
-                        <button className={styles.copy}
-                            onClick={() =>  navigator.clipboard.writeText(`${address}`)}
-                        >
-                            <Icon name="copy" size="20" />
-                        </button>
+                        {address && 
+                            <button className={styles.copy}
+                                onClick={() =>  navigator.clipboard.writeText(`${address}`)}
+                            >
+                                <Icon name="copy" size="20" />
+                            </button>
+                        }
                     </div>
                     {/* <button
                         className={cn(
