@@ -631,7 +631,7 @@
 
 "@rainbow-me/rainbowkit@^0.7.4":
   version "0.7.4"
-  resolved "https://registry.npmjs.org/@rainbow-me/rainbowkit/-/rainbowkit-0.7.4.tgz"
+  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-0.7.4.tgz#5cf25d9108ae125c3b1b2b6ddb01d785940011bd"
   integrity sha512-o3kwaHZw9O40gfK2DamJZzoqPbK7EHC+8++QtFy5AQ0Sw5P+U0tzb/87KHatSIXyIwrZTEGD0uciPjCGikJMjg==
   dependencies:
     "@vanilla-extract/css" "1.9.1"
@@ -2366,7 +2366,7 @@ ethereumjs-util@^6.0.0:
 
 ethers@^5.7.2:
   version "5.7.2"
-  resolved "https://registry.npmjs.org/ethers/-/ethers-5.7.2.tgz"
+  resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.7.2.tgz#3a7deeabbb8c030d4126b24f84e525466145872e"
   integrity sha512-wswUsmWo1aOK8rR7DIKiWSw9DbLWe6x98Jrn8wcTflTVvaXhAMaB5zGAXy0GYQEQp9iO1iSHWVyARQm11zUtyg==
   dependencies:
     "@ethersproject/abi" "5.7.0"
@@ -4510,7 +4510,7 @@ v8-compile-cache@^2.0.3:
 
 wagmi@^0.7.13:
   version "0.7.13"
-  resolved "https://registry.npmjs.org/wagmi/-/wagmi-0.7.13.tgz"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.7.13.tgz#4212c13df3ea94f2753376370cec11bbef0e7be5"
   integrity sha512-CXPxWFSl4Ot2KyosC+ocGT4LJ1ZkQ60hUldx8LO1ioEitXVWctopgCvcj5rnXglUkNgtC0lN1XFDsmtJtc01QQ==
   dependencies:
     "@coinbase/wallet-sdk" "^3.5.3"
