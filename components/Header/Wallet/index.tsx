@@ -59,7 +59,9 @@ const Notification = ({ className, wide }: NotificationProps) => {
                         <div className={styles.code}>
                             {address ? formatWalletAddress(wallet, 10, 10) :  'connecting'}
                         </div>
-                        <button className={styles.copy}>
+                        <button className={styles.copy}
+                            onClick={() =>  navigator.clipboard.writeText(`${address}`)}
+                        >
                             <Icon name="copy" size="20" />
                         </button>
                     </div>
