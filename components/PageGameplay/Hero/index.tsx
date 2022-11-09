@@ -6,11 +6,11 @@ import Image from "../../Image";
 import Card from "./Card";
 import Mouse from "../../Mouse";
 import ComingSoon from "../../ComingSoon";
-import Layout from "../../Layout";
+import ReactSlider from 'react-slider'
 
-const Range = dynamic(() => import("react-slider"), {
-    ssr: false,
-});
+// const Range = dynamic(ReactSlider, {
+//     ssr: false,
+// });
 
 import { images } from "../../../constants/gameplayHero";
 import { cards } from "../../../mocks/cardsGameplay";
@@ -58,7 +58,7 @@ const Hero = ({}: HeroProps) => {
                 </div>
                 <div className={styles.foot}>
                     <Mouse className={styles.mouse} title="Explore the game" />
-                    <Range
+                    <ReactSlider
                         className={styles.slider}
                         thumbClassName={styles.thumb}
                         trackClassName={styles.track}
