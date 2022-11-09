@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { AppProps } from "next/app";
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-247622932-1');
