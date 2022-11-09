@@ -8,10 +8,11 @@ import Back from "../../Back";
 import Icon from "../../Icon";
 import ModalShareProfile from "../../ModalShareProfile";
 import ModalPurchase from "../../ModalPurchase";
+import ReactSlider from 'react-slider'
 
-const Range = dynamic(() => import("react-slider"), {
-    ssr: false,
-});
+// const Range = dynamic(() => import("react-slider"), {
+//     ssr: false,
+// });
 
 const planets = [
     {
@@ -188,7 +189,7 @@ const Location = ({}: LocationProps) => {
                     </div>
 
                     <div className={styles.range_slider}>
-                        <Range
+                        <ReactSlider
                             className={styles.slider}
                             thumbClassName={styles.thumb}
                             trackClassName={styles.track}
