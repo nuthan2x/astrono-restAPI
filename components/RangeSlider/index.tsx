@@ -6,10 +6,11 @@ import Image from "../Image";
 import Icon from "../Icon";
 import TooltipIcon from "../TooltipIcon";
 import { RangeType } from "../../types";
+import ReactSlider from 'react-slider'
 
-const Range = dynamic(() => import("react-slider"), {
-    ssr: false,
-});
+// const Range = dynamic(() => import("react-slider"), {
+//     ssr: false,
+// });
 
 type RangeProps = {
     className?: string;
@@ -56,7 +57,7 @@ const RangeSlider = ({ className, values, setValue }: RangeProps) => {
                 )}
                 <div className={styles.value}>{rangeValue}</div>
             </div>
-            <Range
+            <ReactSlider
                 className={styles.slider}
                 thumbClassName={styles.thumb}
                 trackClassName={styles.track}
