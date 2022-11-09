@@ -102,10 +102,10 @@ const Header = ({ noAuth }: HeaderProps) => {
 
                         {!noAuth ? (
                             <div className={styles.control}>
-                                <Notification
+                                {/* <Notification
                                     className={styles.notification}
                                     items={notifications}
-                                />
+                                /> */}
                                 {!isTablet && (
                                     <Wallet className={styles.wallet} />
                                 )}
@@ -116,21 +116,31 @@ const Header = ({ noAuth }: HeaderProps) => {
                             </div>
                         ) : (
                             // <Link href="/getting-started">
-                                <a
-                                    className={cn(
-                                        "button-stroke button-sm",
-                                        styles.button
+                                <>
+                                    <a
+                                        className={cn(
+                                            "button-stroke button-sm",
+                                            styles.button
+                                        )}
+                                        href="https://astrono.gitbook.io/docs/"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        <Icon
+                                            name="game"
+                                            className={styles.icon_game}
+                                        />
+                                        White Paper
+                                    </a>
+                                     {!isTablet && (
+                                        <Wallet className={styles.wallet} />
                                     )}
-                                    href="https://astrono.gitbook.io/docs/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    <Icon
-                                        name="game"
-                                        className={styles.icon_game}
+                                    <Settings
+                                        className={styles.settings}
+                                        items={settings}
                                     />
-                                    White Paper
-                                </a>
+                                </>
+                                
                             // </Link>
                         )}
                         <Logo className={styles.logo} />

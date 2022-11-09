@@ -21,7 +21,7 @@ const ZenithMainnet: Chain = {
   id: 79,
   name: 'Zenith Mainnet',
   network: 'Zenith Mainnet',
-  iconUrl: 'https://ipfs.io/ipfs/QmRa9ARn56DK8jxuaYdRJ2Wdm1mtZkUhP9i5G8TaGCVMRP',
+  iconUrl: 'https://gateway.pinata.cloud/ipfs/QmPeoRP6idgGmYr7LptKBF3Ugst6Rzti71ADAJSmmqQT4K',
   iconBackground: '#fff',
   nativeCurrency: {
     decimals: 18,
@@ -112,7 +112,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         
             <WagmiConfig client={wagmiClient}>
-                <RainbowKitProvider chains={chains}>
+                <RainbowKitProvider chains={chains} initialChain={79}>
                   <Component {...pageProps} />
                 </RainbowKitProvider>
             </WagmiConfig>
