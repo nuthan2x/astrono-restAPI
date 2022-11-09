@@ -5,19 +5,63 @@ import "../styles/app.sass";
 
 import '@rainbow-me/rainbowkit/styles.css';
 import {
-  connectorsForWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
+  Chain, connectorsForWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import {
   chain,
   configureChains,
   createClient,
   WagmiConfig,
 } from 'wagmi';
+
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 
+const ZenithMainnet: Chain = {
+  id: 79,
+  name: 'Zenith Mainnet',
+  network: 'Zenith Mainnet',
+  iconUrl: 'https://ipfs.io/ipfs/QmRa9ARn56DK8jxuaYdRJ2Wdm1mtZkUhP9i5G8TaGCVMRP',
+  iconBackground: '#fff',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'ZENITH',
+    symbol: 'ZENITH',
+  },
+  rpcUrls: {
+    default: 'https://dataserver-us-1.zenithchain.co/	',
+  },
+  blockExplorers: {
+    default: { name: 'zenithchain', url: 'https://scan.zenithchain.co/' },
+    etherscan: { name: 'zenithchain', url: 'https://scan.zenithchain.co/' },
+  },
+  testnet: false,
+};
+
+const bscMainnet: Chain = {
+  id: 56,
+  name: 'Binance Smart Chain Mainnet',
+  network: 'Binance Smart Chain Mainnet',
+  iconUrl: 'https://ipfs.io/ipfs/QmY23eEYQnVUoTUUTnX3aQd9tVv9eQRcoPvpNG7eUDxjGU',
+  iconBackground: '#fff',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'BNB',
+    symbol: 'BNB',
+  },
+  rpcUrls: {
+    default: 'https://bsc-dataseed1.ninicoin.io',
+  },
+  blockExplorers: {
+    default: { name: 'bscscan', url: 'https://bscscan.com' },
+    etherscan: { name: 'bscscan', url: 'https://bscscan.com' },
+  },
+  testnet: false,
+};
 const { chains, provider } = configureChains(
-    [chain.mainnet, chain.polygon ],
+    [chain.mainnet, chain.polygon, bscMainnet, ZenithMainnet],
     [
-      publicProvider()
+      publicProvider(),
+      jsonRpcProvider({ rpc: chain => ({ http: chain.rpcUrls.default }) })
     ]
   );
   import {
@@ -59,6 +103,9 @@ const { chains, provider } = configureChains(
     connectors,
     provider
   })
+
+
+
   
 function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -75,4 +122,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+
+
 
