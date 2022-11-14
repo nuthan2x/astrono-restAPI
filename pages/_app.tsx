@@ -42,7 +42,7 @@ const bscMainnet: Chain = {
   id: 56,
   name: 'Binance Smart Chain Mainnet',
   network: 'Binance Smart Chain Mainnet',
-  iconUrl: 'https://ipfs.io/ipfs/QmY23eEYQnVUoTUUTnX3aQd9tVv9eQRcoPvpNG7eUDxjGU',
+  iconUrl: 'https://gateway.pinata.cloud/ipfs/QmY23eEYQnVUoTUUTnX3aQd9tVv9eQRcoPvpNG7eUDxjGU',
   iconBackground: '#fff',
   nativeCurrency: {
     decimals: 18,

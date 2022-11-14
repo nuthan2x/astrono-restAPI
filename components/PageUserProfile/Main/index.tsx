@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import cn from "classnames";
 import styles from "./Main.module.sass";
 import Cover from "../../Profile/Cover";
@@ -6,6 +6,8 @@ import Icon from "../../Icon";
 import Image from "../../Image";
 import Tooltip from "rc-tooltip";
 import ModalChangeAvatar from "../../ModalChangeAvatar";
+import {useSigner, useAccount} from 'wagmi';
+import axios from 'axios';
 
 import { formatWalletAddress } from "../../../utils";
 import ModalShareProfile from "../../ModalShareProfile";
@@ -13,25 +15,100 @@ import ModalShareProfile from "../../ModalShareProfile";
 type MainProps = {};
 
 const Main = ({}: MainProps) => {
+    const { address, isConnecting, isDisconnected } = useAccount()
+
     const [modalShare, setModalShare] = useState<boolean>(false);
     const [modalAvatar, setModalAvatar] = useState<boolean>(false);
     const [upload, setUpload] = useState<boolean>(false);
     const [file, setFile] = useState<string>("");
-    const wallet: string = "hk980io73bz880hk980io73bz880";
+
+    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
+    const [twitter, settwitter] = useState('');
+    const [instagram, setinstagram] = useState('')
+    const [coverimageIPFS, setcoverimageIPFS] = useState('')
+    const [avatarIPFS, setavatarIPFS] = useState('')
+    const [avatar, setAvatar] = useState<string>("");
+    const [isprevData, setisprevData] = useState(false)
+    const [updateData, setupdateData] = useState({ 
+        id : address,
+        displayname : '',
+        username : '',
+        twitter : '',
+        instagram : '',
+        coverimage : '',
+        avatarimage : ''
+    })
+
+
+    useEffect(() => {
+        getdata()
+      }, [])
+  
+      useEffect(() => {
+        getdata()
+      }, [address])
+      
+      useEffect(() => {
+          setName('')
+          setUsername('') 
+          settwitter('')
+          setinstagram('')
+          setFile('')
+          setAvatar('')
+          setcoverimageIPFS('')
+          setavatarIPFS('')
+      }, [isDisconnected])
+
+    const getdata = () => {
+        axios.get(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`)
+        .then(res => {
+            console.log('get_success', res.data)
+            setName(res.data.displayname)
+            setUsername(res.data.username)
+            settwitter(res.data.twitter)
+            setinstagram(res.data.instagram)
+            setcoverimageIPFS(res.data.coverimage)
+            setavatarIPFS(res.data.avatarimage)
+            res.status === 200 && setisprevData(true)
+        }) 
+        .catch(err => {
+            console.log(err)
+            setName('')
+            setUsername('') 
+            settwitter('')
+            setinstagram('')
+            setFile('')
+            setAvatar('')
+            setcoverimageIPFS('')
+            setavatarIPFS('')
+        })
+    }
 
     return (
         <div className={cn("container-lg", styles.container)}>
             <div className={styles.wrapper}>
-                <Cover
+                 {(isprevData && !address) ? <Cover
                     upload={upload}
                     setUpload={setUpload}
                     value={file}
                     onChange={setFile}
-                    cover="/images/content/profile-cover.png"
+                    cover= "/images/content/profile-cover.png"
                 />
+                 : <img src= {isprevData ? `https://gateway.pinata.cloud/ipfs/${coverimageIPFS}` : "/images/content/profile-cover.png"}  alt="cover image"  className={styles.coverimg}/>}
+                 {/* {address == undefined && 
+                   <Cover
+                    upload={upload}
+                    setUpload={setUpload}
+                    value={file}
+                    onChange={setFile}
+                    cover= "/images/content/profile-cover.png"
+                   />
+                 } */}
+                
                 <div className={styles.profile}>
                     <div className={styles.avatar}>
-                        <div
+                        {/* <div
                             className={styles.upload}
                             onClick={() => setModalAvatar(true)}
                         >
@@ -45,23 +122,34 @@ const Main = ({}: MainProps) => {
                         <ModalChangeAvatar
                             visibleModal={modalAvatar}
                             setVisibleModal={() => setModalAvatar(false)}
-                        />
+                        /> */}
 
-                        <Image
-                            src="/images/content/avatar.png"
+                        {(isprevData && !address) ? <Image
+                            src= "/images/content/avatar.png"
                             width={142}
                             height={142}
-                            alt="Jace Bednar"
-                        />
+                            alt="avatar img"
+                        /> 
+                        : <img src= {isprevData ? `https://gateway.pinata.cloud/ipfs/${avatarIPFS}` : "/images/content/avatar.png"} alt="" className={styles.avatarimg}/>}
+                        
+                        {/* {address == undefined && 
+                          <Image
+                            src= "/images/content/avatar.png"
+                            width={142}
+                            height={142}
+                            alt="avatar img"
+                        /> 
+                        }
+                     */}
                     </div>
                     <div className={styles.details}>
-                        <div className={cn("h5", styles.name)}>Jace Bednar</div>
-                        <div className={styles.code}>
-                            <div>{formatWalletAddress(wallet, 14, 14)}</div>
-                            <button className={styles.copy}>
+                        <div className={cn("h5", styles.name)}>{(address && isprevData) ? name : 'my Name'}</div>
+                        {address &&<div className={styles.code}>
+                             <div>{`${address?.slice(0,10)}............${address?.slice(32,42)}`}</div>
+                            <button className={styles.copy} onClick={() => {navigator.clipboard.writeText(`${address}`)}} >
                                 <Icon name="copy" size="20" />
                             </button>
-                        </div>
+                        </div>}
                     </div>
 
                     <button
