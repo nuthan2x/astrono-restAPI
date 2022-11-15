@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import Link from "next/link";
 import cn from "classnames";
@@ -19,8 +19,9 @@ const Notification = ({ className, wide }: NotificationProps) => {
     const { address, isConnecting, isDisconnected } = useAccount()
 
     const [visible, setVisible] = useState(false);
-    const wallet: string = `${address}` ;
+    const wallet: string = `${address}`;
 
+   
     return (
         <OutsideClickHandler onOutsideClick={() => !wide && setVisible(false)}>
             <div
@@ -104,6 +105,7 @@ const Notification = ({ className, wide }: NotificationProps) => {
                             Withdraw
                         </button>
                     </div> */}
+              
                 </div>
             </div>
         </OutsideClickHandler>
@@ -111,3 +113,98 @@ const Notification = ({ className, wide }: NotificationProps) => {
 };
 
 export default Notification;
+
+
+{/* <div className="mt-4">
+          <button
+            onClick={() => handleNetworkSwitch("polygon")}
+            className="mt-2 mb-2 btn btn-primary submit-button focus:ring focus:outline-none w-full"
+          >
+            Switch to Polygon
+          </button>
+          <button
+            onClick={() => handleNetworkSwitch("bsc")}
+            className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
+          >
+            Switch to BSC
+          </button>
+          <button
+            onClick={() => handleNetworkSwitch("ZenithMainnet")}
+            className="mt-2 mb-2 bg-warning border-warning btn submit-button focus:ring focus:outline-none w-full"
+          >
+            Switch to ZenithMainnet
+          </button>
+                </div> */}
+
+
+                 
+// const networks = {
+//   polygon: {
+//     chainId: `0x${Number(137).toString(16)}`,
+//     chainName: "Polygon Mainnet",
+//     nativeCurrency: {
+//       name: "MATIC",
+//       symbol: "MATIC",
+//       decimals: 18
+//     },
+//     rpcUrls: ["https://polygon-rpc.com/"],
+//     blockExplorerUrls: ["https://polygonscan.com/"]
+//   },
+//   ZenithMainnet: {
+//     chainId: `0x${Number(79).toString(16)}`,
+//     chainName: "Zenith Mainnet",
+//     nativeCurrency: {
+//       name: "ZENITH",
+//       symbol: "ZENITH",
+//       decimals: 18
+//     },
+//     rpcUrls: ["https://dataserver-us-1.zenithchain.co/"],
+//     blockExplorerUrls: ["https://scan.zenithchain.co/"]
+//   },
+//   bsc: {
+//     chainId: `0x${Number(56).toString(16)}`,
+//     chainName: "Binance Smart Chain Mainnet",
+//     nativeCurrency: {
+//       name: "BNB",
+//       symbol: "BNB",
+//       decimals: 18
+//     },
+//     rpcUrls: [
+//       "https://bsc-dataseed1.ninicoin.io"
+//     ],
+//     blockExplorerUrls: ["https://bscscan.com"]
+//   }
+// };
+// const changeNetwork = async ({ networkName }) => {
+//   try {
+//     if (!window.ethereum) throw new Error("No crypto wallet found");
+//     await window.ethereum.request({
+//       method: "wallet_addEthereumChain",
+//       params: [
+//         {
+//           ...networks[networkName]
+//         }
+//       ]
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+
+  
+
+//   const handleNetworkSwitch = async (networkName) => {
+
+//     await changeNetwork({ networkName });
+//   };
+
+
+//   // useEffect(() => {
+//   //   window.ethereum.on("chainChanged", networkChanged);
+
+//   //   return () => {
+//   //     window.ethereum.removeListener("chainChanged", networkChanged);
+//   //   };
+//   // }, []);
+

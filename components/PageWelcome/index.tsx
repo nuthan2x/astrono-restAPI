@@ -76,7 +76,7 @@ const Welcome = ({}: WelcomeProps) => {
                     setVisibleModal={() => setVisibleModal(false)}
                 />
             </div>
-            <ComingSoon />
+            {/* <ComingSoon /> */}
         </div>
 
     );
