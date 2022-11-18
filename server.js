@@ -6,7 +6,7 @@ const jsonServer = require('json-server')
 const jwt = require('jsonwebtoken')
 
 const server = jsonServer.create()
-const router = jsonServer.router('./database.json')
+const router = jsonServer.router('./db.json')
 
 server.use(bodyParser.urlencoded({extended: true}))
 server.use(bodyParser.json())
