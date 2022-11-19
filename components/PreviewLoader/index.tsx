@@ -55,12 +55,13 @@ const PreviewLoader = ({
                 <SVGLoader loaded={loaded} min={min} />
             </div>
             <div className={styles.preview}>
-                <Image
+                {/* <Image
                     src={srcImage}
                     height={104}
                     width={104}
                     alt="Processing"
-                />
+                /> */}
+                <img src={srcImage} alt="Processing" className={styles.processingimg}/>
             </div>
         </div>
     );

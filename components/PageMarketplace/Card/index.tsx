@@ -1,13 +1,13 @@
 import { useState ,useEffect} from "react";
 import Link from "next/link";
-import styles from "./Card.module.sass";
+import styles from "../Card/Card.module.sass";
 import cn from "classnames";
-import Image from "../Image";
-import Icon from "../Icon";
-import Favorite from "../Favorite";
+import Image from "../../Image";
+import Icon from "../../Icon";
+import Favorite from "../../Favorite";
 import ModalSale from "../ModalSale";
 
-import { numberWithCommas } from "../../utils";
+import { numberWithCommas } from "../../../utils";
 import axios from "axios";
 
 type CardProps = {
@@ -15,9 +15,10 @@ type CardProps = {
     item: any;
     bigPreview?: boolean;
     saleItem?: boolean;
+    buyItem? :boolean;
 };
 
-const Card = ({ className, item, bigPreview, saleItem }: CardProps) => {
+const Card = ({ className, item, bigPreview, saleItem,buyItem }: CardProps) => {
     const [visibleModalSale, setVisibleModalSale] = useState<boolean>(false);
     const [currentPrice, setcurrentPrice] = useState<any>({ethusd : undefined, bnbusd : undefined, maticusd : undefined})
 
@@ -93,6 +94,22 @@ const Card = ({ className, item, bigPreview, saleItem }: CardProps) => {
                                 className={cn("button", styles.button)}
                             >
                                 Put on sale
+                            </button>
+                            <ModalSale
+                                visibleModal={visibleModalSale}
+                                setVisibleModal={() =>
+                                    setVisibleModalSale(false)
+                                }
+                                item={item}
+                            />
+                        </>
+                    )}{buyItem && (
+                        <>
+                            <button
+                                onClick={() => setVisibleModalSale(true)}
+                                className={cn("button", styles.button)}
+                            >
+                                Buy
                             </button>
                             <ModalSale
                                 visibleModal={visibleModalSale}

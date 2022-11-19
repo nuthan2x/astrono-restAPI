@@ -1,10 +1,10 @@
-import styles from "./List.module.sass";
+import styles from "../../../Catalog/List/List.module.sass";
 import cn from "classnames";
 import Card from "../../Card";
-import Loader from "../../Loader";
+import Loader from "../../../Loader";
 import AppendCard from "./AppendCard";
 
-import { ItemsType } from "../../../types";
+import { ItemsType } from "../../../../types";
 
 type ListProps = {
     className?: string;
@@ -13,6 +13,7 @@ type ListProps = {
     col2?: boolean;
     crop?: boolean;
     saleItem?: boolean;
+    buyItem? :boolean;
 };
 
 const List = ({
@@ -22,6 +23,7 @@ const List = ({
     col2,
     crop,
     saleItem,
+    buyItem,
 }: ListProps) => {
     const list = crop ? items.slice(0, 2) : items;
 
@@ -40,7 +42,7 @@ const List = ({
                         item={x}
                         key={index + Date.now()}
                         bigPreview={bigPreview}
-                        saleItem={saleItem}
+                        buyItem={buyItem}
                     />
                 ))}
                 {crop && <AppendCard className={styles.card} />}

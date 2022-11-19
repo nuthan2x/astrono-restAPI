@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cn from "classnames";
 import styles from "./PageWelcome.module.sass";
 import Card from "./Card";
@@ -18,7 +18,7 @@ const items: ItemsSlideType[] = [
             alt: "Astronauto",
         },
         location: "Earth",
-        crypto: "0,008 ETH",
+        crypto: "0.001 ",
         price: 32.16,
     },
     {
@@ -30,16 +30,26 @@ const items: ItemsSlideType[] = [
             alt: "Lumburr",
         },
         location: "Mars",
-        crypto: "0,008 ETH",
+        crypto: "0.001 ",
         price: 32.16,
     },
 ];
+
 
 type WelcomeProps = {};
 
 const Welcome = ({}: WelcomeProps) => {
     const [checkItem, setCheckItem] = useState<ItemsSlideType>();
     const [visibleModal, setVisibleModal] = useState<boolean>(false);
+    const [isAstronauto, setisAstronauto] = useState(true)
+    
+    useEffect(() => {
+        console.log('checkItem: ', checkItem);
+        checkItem?.title === 'Astronauto' ? setisAstronauto(true) : setisAstronauto(false)
+        
+    
+    }, [checkItem])
+    
 
     return (
         <div className={styles.wrapper}>
@@ -74,6 +84,7 @@ const Welcome = ({}: WelcomeProps) => {
                 <ModalPurchase
                     visibleModal={visibleModal}
                     setVisibleModal={() => setVisibleModal(false)}
+                    IsAstronauto = {isAstronauto}
                 />
             </div>
             {/* <ComingSoon /> */}

@@ -30,6 +30,7 @@ const Settings = ({ items, className }: SettingsProps) => {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
     const [isprevData, setisprevData] = useState(false)
+    const [avatarIPFS, setavatarIPFS] = useState('')
 
    
 
@@ -48,12 +49,12 @@ const Settings = ({ items, className }: SettingsProps) => {
       
     
       const getdata = () => {
-        axios.get(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`)
+        axios.get(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users/${address}`)
         .then(res => {
             console.log('get_success', res.data)
             setName(res.data.displayname)
             setUsername(`@${res.data.username}`)
-     
+            setavatarIPFS(res.data.avatarimage)
             res.status === 200 && setisprevData(true)
         }) 
         .catch(err => {
@@ -74,6 +75,8 @@ const Settings = ({ items, className }: SettingsProps) => {
                     className={cn(styles.head, styles.active)}
                     onClick={() => setVisible(!visible)}
                 >
+                  {/* {  {(avatarIPFS && address)
+                    ? <img src={(avatarIPFS && address) ?`https://gateway.pinata.cloud/ipfs/${avatarIPFS}` : '/images/content/avatars/avatar-7.png'} alt="" /> } */}
                     <Image
                         src="/images/content/avatars/avatar-7.png"
                         width={32}

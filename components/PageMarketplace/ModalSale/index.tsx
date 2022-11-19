@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
 import cn from "classnames";
-import styles from "./ModalSale.module.sass";
-import Modal from "../Modal";
-import Icon from "../Icon";
-import Input from "../Input";
+import styles from "../../ModalSale/ModalSale.module.sass";
+import Modal from "../../Modal";
+import Icon from "../../Icon";
+import Input from "../../Input";
 
-import { numberWithCommas } from "../../utils";
+import { numberWithCommas } from "../../../utils";
 
-import PreviewLoader from "../PreviewLoader";
+import PreviewLoader from "../../PreviewLoader";
 import Link from "next/link";
-import Image from "../Image";
+import Image from "../../Image";
 import axios from "axios";
 import {useSigner, useAccount} from 'wagmi';
 import { ethers } from "ethers";
 
-const item = {
-    name: "Lumburr",
-    crypto: "1 ETH",
-    price: 32.018,
-    location: "Mars",
-};
+// const item = {
+//     name: "Lumburr",
+//     crypto: "1 ETH",
+//     price: 32.018,
+//     location: "Mars",
+// };
 
-const exchange = 2646.4;
+// const exchange = 2646.4;
 
 type ModalSaleProps = {
     visibleModal: boolean;
@@ -37,14 +37,13 @@ type ModalType = {
     setValue : any;
     value : any;
     currentPrice : any;
-    approveToken: any;
+    BuyToken: any;
     TxnStatus:any;
     TransferTxn:any;
     ApproveTxn:any;
 };
 
-const SetPrice = ({ setStateModal, item, setValue, value }: ModalType) => {
- 
+const SetPrice = ({ setStateModal, item, setValue, value , currentPrice}: ModalType) => {
     
     return (
         <div className={cn(styles.set_price, styles.centered)}>
@@ -53,9 +52,9 @@ const SetPrice = ({ setStateModal, item, setValue, value }: ModalType) => {
                 srcImage= {item.image.href}
             />
             <h5 className={cn("title", styles.subtitle)}>
-                {`You’re listing ${item.title} #${item.code} on sale for`}
+                {`You’re Buying ${item.title} #${item.code} for ${item.crypto}`}
             </h5>
-            <div className={styles.field_price}>
+            {/* <div className={styles.field_price}>
                 <Input
                     placeholder="0.00"
                     className={styles.input}
@@ -72,9 +71,9 @@ const SetPrice = ({ setStateModal, item, setValue, value }: ModalType) => {
                         alt="Matic"
                     />
                 </div>
-            </div>
+            </div> */}
             <div className={styles.note}>
-                Approving the contract to transfer this token from your wallet to contract to list for sale on marketplace. 
+                {`Buying for ${item.crypto} at $ ${item.price * currentPrice}` }
             </div>
             <button
                 className={cn("button", styles.continue)}
@@ -87,9 +86,9 @@ const SetPrice = ({ setStateModal, item, setValue, value }: ModalType) => {
     );
 };
 
-const Confirm = ({ setStateModal ,item,  setValue, value, currentPrice, approveToken, TransferTxn, ApproveTxn, TxnStatus}: ModalType) => (
+const Confirm = ({ setStateModal ,item,  setValue, value, currentPrice, BuyToken, TransferTxn, ApproveTxn, TxnStatus}: ModalType) => (
     <>
-        <div className={cn("title", styles.title)}>Confirm sell</div>
+        <div className={cn("title", styles.title)}>Confirm Buy</div>
         <div className={styles.info}>
             <div>
                 <div className={cn("h6", styles.name)}>{`${item.title} #${item.code}`}</div>
@@ -99,9 +98,9 @@ const Confirm = ({ setStateModal ,item,  setValue, value, currentPrice, approveT
                 </div>
             </div>
             <div>
-                <div className={cn("h6", styles.crypto)}>{`${value} MATIC`}</div>
+                <div className={cn("h6", styles.crypto)}>{`${item.crypto}`}</div>
                 <div className={styles.price}>
-                    ~ $ {(value * Number(currentPrice.maticusd)).toFixed(3)}
+                    ~ $ {(item.price * Number(currentPrice.maticusd)).toFixed(3)}
                 </div>
             </div>
         </div>
@@ -109,7 +108,7 @@ const Confirm = ({ setStateModal ,item,  setValue, value, currentPrice, approveT
             <Icon name="usd" />
             Price
             <div className={styles.value}>
-                1 MATIC = {currentPrice.maticusd ? `$ ${(currentPrice.maticusd)?.toFixed(6)}` : '$ N/A'}
+                1 MATIC = {currentPrice.maticusd ? `${(currentPrice.maticusd)?.toFixed(6)}` : 'N/A'}
             </div>
         </div>
 
@@ -117,16 +116,16 @@ const Confirm = ({ setStateModal ,item,  setValue, value, currentPrice, approveT
             className={cn("button", styles.confirm)}
             onClick={() => 
                 {
-                    approveToken()
+                    BuyToken()
                 }
             }
         >
             {TxnStatus}
         </button>
-        <div className={styles.note}>
+        {/* <div className={styles.note}>
             By clicking you are signing an approval to list this token for <span>{value} MATIC</span> on marketplace. 
             First approving token  to the marketplace contract and then transfering the token from your wallet to the marketplace contract to list for sale.
-        </div>
+        </div> */}
     </>
 );
 
@@ -161,13 +160,11 @@ const ModalSale = ({ visibleModal, setVisibleModal, item }: ModalSaleProps) => {
     const [currentPrice, setcurrentPrice] = useState({ethusd : undefined, bnbusd : undefined, maticusd : undefined})
     const [ApproveTxn, setApproveTxn] = useState('')
     const [TransferTxn, setTransferTxn] = useState('')
-    const [TxnStatus, setTxnStatus] = useState('Approve')
+    const [TxnStatus, setTxnStatus] = useState('Buy')
     
-    useEffect(() => {
-        console.log('value: ', value);
-        
-        
-    }, [value])
+    // useEffect(() => {
+    //     console.log('value: ', value);
+    // }, [value])
     
     useEffect(() => setStateModal(transferModal), [transferModal]);
     useEffect(() => {
@@ -186,31 +183,29 @@ const ModalSale = ({ visibleModal, setVisibleModal, item }: ModalSaleProps) => {
     
     }
 
-    const approveToken = async () => {
+    const BuyToken = async () => {
         try {
-            setTxnStatus('Waiting for Approval...')
             let contract = item.title == 'Astronauto' ? ASTRONAUT : LUMBURR
             let tokenId = parseInt(item.code).toString()
-            let approval_Txn = await contract.approve(MARKETPLACE_address, tokenId)
-            setTxnStatus('Approving...')
-            setApproveTxn(`https://mumbai.polygonscan.com/tx/${approval_Txn.hash}`)
-            let receipt1 = await approval_Txn.wait()
-            console.log('receipt1: ', receipt1);
-            setTxnStatus('Listing for Sale...')
-    
-            console.log('value.toString(): ', value.toString());
+            setTxnStatus('Signing Tranaction...')
+
             console.log('tokenId: ', tokenId);
-            console.log('contract: ', contract);
-            let transfer_Txn = await MARKETPLACE.makeItem(contract.address, tokenId,  (Number(value) * 1e18).toString())
+            console.log('Item_Id: ', item.Item_Id);
+
+            const options = {value: ethers.utils.parseUnits((Number(item.price) * 1.01 * 1e18).toString(), 'wei')}   // 1% fees 
+            console.log('options: ', options);
+            let transfer_Txn = await MARKETPLACE.purchaseItem((item.Item_Id).toString(), options)
+
             setTransferTxn(`https://mumbai.polygonscan.com/tx/${transfer_Txn.hash}`)
+            setTxnStatus('Buying...')
+
             let receipt2 = await transfer_Txn.wait()
             setStateModal("complete")
             
         } catch (error) {
             console.log('error: ', error);
-            setTxnStatus('Listing Failed')
+            setTxnStatus('Transaction Failed')
         }
-
     }
 
     return (
@@ -229,7 +224,7 @@ const ModalSale = ({ visibleModal, setVisibleModal, item }: ModalSaleProps) => {
                             setValue={setValue} 
                             value={value} 
                             currentPrice={currentPrice} 
-                            approveToken={approveToken}
+                            BuyToken={BuyToken}
                             TxnStatus={TxnStatus}
                             ApproveTxn ={ApproveTxn}
                             TransferTxn ={TransferTxn}
@@ -241,7 +236,7 @@ const ModalSale = ({ visibleModal, setVisibleModal, item }: ModalSaleProps) => {
                             setValue={setValue} 
                             value={value} 
                             currentPrice={currentPrice} 
-                            approveToken={approveToken}
+                            BuyToken={BuyToken}
                             TxnStatus={TxnStatus}
                             ApproveTxn ={ApproveTxn}
                             TransferTxn ={TransferTxn}
@@ -253,15 +248,15 @@ const ModalSale = ({ visibleModal, setVisibleModal, item }: ModalSaleProps) => {
                                         <Icon name="check" size="48" />
                                     </div>
                                     <h5 className={cn("h5", styles.subtitle)}>Congrats!</h5>
-                                    <div className={styles.text}>Awesome, your item was listed for sale.</div>
-                                    <Link href="/marketplace">
-                                        <a className={cn("button", styles.view)}>View on marketplace</a>
+                                    <div className={styles.text}> Awesome, purchase transfer was successful.</div>
+                                    <Link href="/user-profile">
+                                        <a className={cn("button", styles.view)}>View my Profile</a>
                                     </Link>
                                     
-                                        <a className={styles.explore} href={TransferTxn} target='_blank' rel='noopener noreferrer'>
-                                            View on explorer
-                                            <Icon name="external-link" size="16" />
-                                        </a>
+                                    <a className={styles.explore} href={TransferTxn} target='_blank' rel='noopener noreferrer'>
+                                        View on explorer
+                                        <Icon name="external-link" size="16" />
+                                    </a>
                                     
                                 </div>,
                     }[stateModal]

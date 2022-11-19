@@ -63,8 +63,8 @@ const PageUserSetting = ({}: PageUserSettingProps) => {
                     url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
                     data: formData,
                     headers: {
-                        'pinata_api_key': `ed65016f9deeea392db8`,
-                        'pinata_secret_api_key': `a58f5515bbd660a9d64cf686b85dbe9bfa4d4250e109bba58f9fa6a7e01f2e0e`,
+                        'pinata_api_key': process.env.PINATA_API_KEY,
+                        'pinata_secret_api_key': process.env.PINATA_API_SECRET,
                         "Content-Type": "image"
                     },
                 });
@@ -93,8 +93,8 @@ const PageUserSetting = ({}: PageUserSettingProps) => {
                     url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
                     data: formData,
                     headers: {
-                        'pinata_api_key': `ed65016f9deeea392db8`,
-                        'pinata_secret_api_key': `a58f5515bbd660a9d64cf686b85dbe9bfa4d4250e109bba58f9fa6a7e01f2e0e`,
+                        'pinata_api_key': process.env.PINATA_API_KEY,
+                        'pinata_secret_api_key': process.env.PINATA_API_SECRET,
                         "Content-Type": "image"
                     },
                 });
@@ -166,7 +166,7 @@ const PageUserSetting = ({}: PageUserSettingProps) => {
     }, [updateData])
 
     const getdata = () => {
-        axios.get(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`)
+        axios.get(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users/${address}`)
         .then(res => {
             console.log('get_success', res.data)
             setName(res.data.displayname)
@@ -197,7 +197,7 @@ const PageUserSetting = ({}: PageUserSettingProps) => {
         if(isprevData) {
             
             console.log('put updateData: ', updateData);
-            axios.put(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`, updateData)
+            axios.put(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users/${address}`, updateData)
             .then(res => {
                 console.log('put_success', res.data)
                 res.status == 200 && setsettingssaved(true)
@@ -208,7 +208,7 @@ const PageUserSetting = ({}: PageUserSettingProps) => {
             .catch(err => console.log(err))
         } else {
             console.log('post updateData: ', updateData);
-            axios.post('https://necessary-gleaming-foxglove.glitch.me/users', updateData)
+            axios.post(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users`, updateData)
             .then(res => {
                 console.log('post_success', res.data)
                 res.status == 200 && setsettingssaved(true)

@@ -14,9 +14,9 @@ const UserProfile = ({}: UserProfileProps) => {
             <Main />
             <Catalog
                 value={sortingProfile}
-                sort
-                crop
-                className={styles.catalog}
+                // sort
+                // crop
+                // className={styles.catalog}
                 saleItem
             />
             <JoinCommunity />

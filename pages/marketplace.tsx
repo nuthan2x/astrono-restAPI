@@ -7,7 +7,7 @@ const Marketplace: NextPage = () => {
     return (
         <Layout>
             <PageMarketplace />
-            <ComingSoon />
+            {/* <ComingSoon /> */}
         </Layout>
     );
 };

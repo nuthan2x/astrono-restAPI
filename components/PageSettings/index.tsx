@@ -55,7 +55,7 @@ const PageSettings = ({ className }: PageSettingsProps) => {
     }, [ email, checkListings, checkPurchase, checkNotifications, checkIngame])
 
     const getdata = () => {
-        axios.get(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`)
+        axios.get(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users/${address}`)
         .then(res => {
             console.log('get_success', res.data)
             setEmail(res.data.email)
@@ -78,7 +78,7 @@ const PageSettings = ({ className }: PageSettingsProps) => {
         if(isprevData) {
             
             console.log('put updateData: ', updateData);
-            axios.put(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`, updateData)
+            axios.put(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users/${address}`, updateData)
             .then(res => {
                 console.log('put_success', res.data)
                 res.status == 200 && setsettingssaved(true)
@@ -89,7 +89,7 @@ const PageSettings = ({ className }: PageSettingsProps) => {
             .catch(err => console.log(err))
         } else {
             console.log('post updateData: ', updateData);
-            axios.post('https://necessary-gleaming-foxglove.glitch.me/users', updateData)
+            axios.post('${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users', updateData)
             .then(res => {
                 console.log('post_success', res.data)
                 res.status == 200 && setsettingssaved(true)

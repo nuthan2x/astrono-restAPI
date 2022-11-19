@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import ReactGA from 'react-ga';
 ReactGA.initialize('UA-247622932-1');
 import "../styles/app.sass";
+import Script from 'next/script';
 
 import '@rainbow-me/rainbowkit/styles.css';
 import {
@@ -59,7 +60,7 @@ const bscMainnet: Chain = {
   testnet: false,
 };
 const { chains, provider } = configureChains(
-    [chain.mainnet, chain.polygon, bscMainnet, ZenithMainnet],
+    [chain.mainnet, chain.polygon, chain.polygonMumbai, bscMainnet, ZenithMainnet],
     [
       publicProvider(),
       jsonRpcProvider({ rpc: chain => ({ http: chain.rpcUrls.default }) })
@@ -110,12 +111,27 @@ const { chains, provider } = configureChains(
   
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        
-            <WagmiConfig client={wagmiClient}>
-                <RainbowKitProvider chains={chains} >
-                  <Component {...pageProps} />
-                </RainbowKitProvider>
-            </WagmiConfig>
+      <>
+        <Script
+          async
+          src='https://www.googletagmanager.com/gtag/js?id=UA-247622932-1'
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+           window.dataLayer = window.dataLayer || [];
+           function gtag(){dataLayer.push(arguments);}
+           gtag('js', new Date());
+           gtag('config', 'UA-247622932-1');
+          `}
+        </Script>
+          
+              <WagmiConfig client={wagmiClient}>
+                  <RainbowKitProvider chains={chains} initialChain={chain.polygonMumbai}>
+                    <Component {...pageProps} />
+                  </RainbowKitProvider>
+              </WagmiConfig>
+      </>
             
         
     );

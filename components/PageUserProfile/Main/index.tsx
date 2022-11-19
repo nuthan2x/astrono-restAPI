@@ -61,7 +61,7 @@ const Main = ({}: MainProps) => {
       }, [isDisconnected])
 
     const getdata = () => {
-        axios.get(`https://necessary-gleaming-foxglove.glitch.me/users/${address}`)
+        axios.get(`${process.env.REACT_APP_RESTAPI_JSON_SERVER}/users/${address}`)
         .then(res => {
             console.log('get_success', res.data)
             setName(res.data.displayname)
@@ -95,7 +95,7 @@ const Main = ({}: MainProps) => {
                     onChange={setFile}
                     cover= "/images/content/profile-cover.png"
                 />
-                 : <img src= {isprevData ? `https://gateway.pinata.cloud/ipfs/${coverimageIPFS}` : "/images/content/profile-cover.png"}  alt="cover image"  className={styles.coverimg}/>}
+                 : <img src= {(isprevData && coverimageIPFS )? `https://gateway.pinata.cloud/ipfs/${coverimageIPFS}` : "/images/content/profile-cover.png"}  alt="cover image"  className={styles.coverimg}/>}
                  {/* {address == undefined && 
                    <Cover
                     upload={upload}
@@ -130,7 +130,7 @@ const Main = ({}: MainProps) => {
                             height={142}
                             alt="avatar img"
                         /> 
-                        : <img src= {isprevData ? `https://gateway.pinata.cloud/ipfs/${avatarIPFS}` : "/images/content/avatar.png"} alt="" className={styles.avatarimg}/>}
+                        : <img src= {(isprevData && avatarIPFS) ? `https://gateway.pinata.cloud/ipfs/${avatarIPFS}` : "/images/content/avatar.png"} alt="" className={styles.avatarimg}/>}
                         
                         {/* {address == undefined && 
                           <Image

@@ -5,7 +5,7 @@ import Item from "./Item";
 
 import { marketplaceCounter, marketplace } from "../../mocks/marketplace";
 import { numberWithCommas } from "../../utils";
-import Catalog from "../Catalog";
+import Catalog from "./MarketCatalogue/index";
 import JoinCommunity from "../JoinCommunity";
 
 import { sortingMarket } from "../../mocks/sortingCatalog";
@@ -43,7 +43,7 @@ const Main = ({}: MainProps) => (
                 </div>
             </div>
         </div>
-        <Catalog value={sortingMarket} filters />
+        <Catalog value={sortingMarket} filters buyItem/>
         <JoinCommunity />
     </>
 );

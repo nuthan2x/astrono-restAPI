@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+require('dotenv').config()
+const webpack = require('webpack')
+
 const nextConfig = {
     reactStrictMode: false,
     eslint: {
@@ -12,6 +15,12 @@ const nextConfig = {
         // your project has type errors.
         // !! WARN !!
         ignoreBuildErrors: true,
+      },
+      webpack: (config) => {
+        config.plugins.push(
+          new webpack.EnvironmentPlugin(process.env)
+        )
+        return config
       },
 };
 

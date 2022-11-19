@@ -7,7 +7,7 @@ const WishlistDetailed: NextPage = () => {
     return (
         <Layout>
             <PageWishlistDetailed />
-            <ComingSoon />
+            {/* <ComingSoon /> */}
         </Layout>
     );
 };
